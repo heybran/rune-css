@@ -1,7 +1,7 @@
 // Grid properties lists
 $display-values: grid, inline-grid;
 $align-items-values: start, center, end, stretch;
-$grid-auto-flow-values: column, row, dense, column-dense, row-dense;
+$grid-auto-flow-values: column, row, dense;
 
 @mixin grid-generator($property, $values) {
   @each $value in $values {
