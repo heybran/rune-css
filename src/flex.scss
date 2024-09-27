@@ -1,0 +1,38 @@
+// Flex properties lists
+$display-values: flex, inline-flex;
+$align-items-values: start, center, end, stretch;
+$justify-content-values: start, center, end, space-between, space-around, stretch;
+$flex-wrap-values: wrap, nowrap, wrap-reverse;
+$flex-direction-values: row, row-reverse, column, column-reverse;
+
+@mixin flex-generator($property, $values) {
+  @each $value in $values {
+    .#{$property}-#{$value} {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+@mixin mobile-flex-generator($property, $values) {
+  @each $value in $values {
+    .#{$property}-#{$value}--mobile {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+// Base Flex Classes
+@include flex-generator('align-items', $align-items-values);
+@include flex-generator('justify-content', $justify-content-values);
+@include flex-generator('flex-wrap', $flex-wrap-values);
+@include flex-generator('flex-direction', $flex-direction-values);
+@include flex-generator('display', $display-values);
+
+// Mobile Flex Classes in Media Query
+@media (any-pointer: coarse) {
+  @include mobile-flex-generator('align-items', $align-items-values);
+  @include mobile-flex-generator('justify-content', $justify-content-values);
+  @include mobile-flex-generator('flex-wrap', $flex-wrap-values);
+  @include mobile-flex-generator('flex-direction', $flex-direction-values);
+  @include mobile-flex-generator('display', $display-values);
+}

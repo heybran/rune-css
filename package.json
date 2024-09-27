@@ -1,0 +1,24 @@
+{
+  "name": "rune-css",
+  "version": "0.1.0",
+  "description": "A collection of responsive utility classes for personal and small-scale projects.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass styles.scss styles.css --watch",
+	"build": "sass styles.scss styles.css",
+	"build:minify": "sass styles.scss styles.min.css --style compressed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heybran/rune-css.git"
+  },
+  "author": "heybran",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/heybran/rune-css/issues"
+  },
+  "homepage": "https://github.com/heybran/rune-css#readme",
+  "devDependencies": {
+    "sass": "^1.79.3"
+  }
+}

@@ -1,0 +1,36 @@
+$margin-values: 1 2 3 4 5 6 7 8 9; // Add more values as needed.
+$margin-base: 4px; // Example base margin value.
+
+@mixin margin-generator($property) {
+  @each $value in $margin-values {
+    .#{$property}-#{$value} {
+      #{$property}: calc(var(--margin-base) * #{$value});
+    }
+  }
+}
+
+@mixin margin-generator-mobile($property) {
+  @each $value in $margin-values {
+    .#{$property}-#{$value}--mobile {
+      #{$property}: calc(var(--margin-base) * #{$value});
+    }
+  }
+}
+
+@include margin-generator('margin');
+@include margin-generator('margin-block');
+@include margin-generator('margin-block-start');
+@include margin-generator('margin-block-end');
+@include margin-generator('margin-inline');
+@include margin-generator('margin-inline-start');
+@include margin-generator('margin-inline-end');
+
+@media (any-pointer: coarse) {
+  @include margin-generator-mobile('margin');
+  @include margin-generator-mobile('margin-block');
+  @include margin-generator-mobile('margin-block-start');
+  @include margin-generator-mobile('margin-block-end');
+  @include margin-generator-mobile('margin-inline');
+  @include margin-generator-mobile('margin-inline-start');
+  @include margin-generator-mobile('margin-inline-end');
+}
