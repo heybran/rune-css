@@ -1,20 +1,52 @@
-$margin-values: 1 2 3 4 5 6 7 8 9; // Add more values as needed.
-$margin-base: 4px; // Example base margin value.
+$margin-values: 0 1 2 3 4 5 6 7 8 9;
+$margin-auto-values: auto;
 
 @mixin margin-generator($property) {
-  @each $value in $margin-values {
-    .#{$property}-#{$value} {
-      #{$property}: calc(var(--margin-base) * #{$value});
-    }
-  }
+	@each $value in $margin-values {
+		.#{$property}-#{$value} {
+			#{$property}: calc(var(--margin-base) * #{$value});
+		}
+	}
 }
 
-@mixin margin-generator-mobile($property) {
-  @each $value in $margin-values {
-    .#{$property}-#{$value}--mobile {
-      #{$property}: calc(var(--margin-base) * #{$value});
-    }
-  }
+@mixin margin-auto-generator($property, $breakpoint) {
+	@each $value in $margin-auto-values {
+		@if $breakpoint =='' {
+			.#{$property}-#{$value} {
+				#{$property}: $value;
+			}
+		}
+
+		@else {
+			.#{$property}-#{$value}--#{$breakpoint} {
+				#{$property}: $value;
+			}
+		}
+	}
+}
+
+@mixin mobile-margin-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--mobile {
+			#{$property}: calc(var(--margin-base) * #{$value});
+		}
+	}
+}
+
+@mixin tablet-margin-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--tablet {
+			#{$property}: calc(var(--margin-base) * #{$value});
+		}
+	}
+}
+
+@mixin desktop-margin-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--desktop {
+			#{$property}: calc(var(--margin-base) * #{$value});
+		}
+	}
 }
 
 @include margin-generator('margin');
@@ -25,12 +57,48 @@ $margin-base: 4px; // Example base margin value.
 @include margin-generator('margin-inline-start');
 @include margin-generator('margin-inline-end');
 
-@media (any-pointer: coarse) {
-  @include margin-generator-mobile('margin');
-  @include margin-generator-mobile('margin-block');
-  @include margin-generator-mobile('margin-block-start');
-  @include margin-generator-mobile('margin-block-end');
-  @include margin-generator-mobile('margin-inline');
-  @include margin-generator-mobile('margin-inline-start');
-  @include margin-generator-mobile('margin-inline-end');
+@include margin-auto-generator('margin', '');
+@include margin-auto-generator('margin-inline', '');
+@include margin-auto-generator('margin-block', '');
+
+@media (max-width: 768px) {
+	@include mobile-margin-generator('margin');
+	@include mobile-margin-generator('margin-block');
+	@include mobile-margin-generator('margin-block-start');
+	@include mobile-margin-generator('margin-block-end');
+	@include mobile-margin-generator('margin-inline');
+	@include mobile-margin-generator('margin-inline-start');
+	@include mobile-margin-generator('margin-inline-end');
+
+	@include margin-auto-generator('margin', 'mobile');
+	@include margin-auto-generator('margin-inline', 'mobile');
+	@include margin-auto-generator('margin-block', 'mobile');
+}
+
+@media (max-width: 1024px) {
+	@include tablet-margin-generator('margin');
+	@include tablet-margin-generator('margin-block');
+	@include tablet-margin-generator('margin-block-start');
+	@include tablet-margin-generator('margin-block-end');
+	@include tablet-margin-generator('margin-inline');
+	@include tablet-margin-generator('margin-inline-start');
+	@include tablet-margin-generator('margin-inline-end');
+
+	@include margin-auto-generator('margin', 'tablet');
+	@include margin-auto-generator('margin-inline', 'tablet');
+	@include margin-auto-generator('margin-block', 'tablet');
+}
+
+@media (min-width: 1024px) {
+	@include desktop-margin-generator('margin');
+	@include desktop-margin-generator('margin-block');
+	@include desktop-margin-generator('margin-block-start');
+	@include desktop-margin-generator('margin-block-end');
+	@include desktop-margin-generator('margin-inline');
+	@include desktop-margin-generator('margin-inline-start');
+	@include desktop-margin-generator('margin-inline-end');
+
+	@include margin-auto-generator('margin', 'desktop');
+	@include margin-auto-generator('margin-inline', 'desktop');
+	@include margin-auto-generator('margin-block', 'desktop');
 }

@@ -1,0 +1,55 @@
+$gap-values: 0 1 2 3 4 5 6 7 8 9;
+
+@mixin gap-generator($property) {
+	@each $value in $gap-values {
+		.#{$property}-#{$value} {
+			#{$property}: calc(var(--gap-base) * #{$value});
+		}
+	}
+}
+
+@mixin mobile-gap-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--mobile {
+			#{$property}: calc(var(--gap-base) * #{$value});
+		}
+	}
+}
+
+@mixin tablet-gap-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--tablet {
+			#{$property}: calc(var(--gap-base) * #{$value});
+		}
+	}
+}
+
+@mixin desktop-gap-generator($property) {
+	@each $value in $margin-values {
+		.#{$property}-#{$value}--desktop {
+			#{$property}: calc(var(--gap-base) * #{$value});
+		}
+	}
+}
+
+@include gap-generator('gap');
+@include gap-generator('column-gap');
+@include gap-generator('row-gap');
+
+@media (max-width: 768px) {
+	@include mobile-gap-generator('gap');
+	@include mobile-gap-generator('column-gap');
+	@include mobile-gap-generator('row-gap');	
+}
+
+@media (max-width: 1024px) {
+	@include tablet-gap-generator('gap');
+	@include tablet-gap-generator('column-gap');
+	@include tablet-gap-generator('row-gap');	
+}
+
+@media (min-width: 1024px) {
+	@include desktop-gap-generator('gap');
+	@include desktop-gap-generator('column-gap');
+	@include desktop-gap-generator('row-gap');
+}

@@ -1,22 +1,21 @@
-// Grid properties lists
 $display-values: grid, inline-grid;
 $align-items-values: start, center, end, stretch;
 $grid-auto-flow-values: column, row, dense;
 
 @mixin grid-generator($property, $values) {
-  @each $value in $values {
-    .#{$property}-#{$value} {
-      #{$property}: #{$value};
-    }
-  }
+	@each $value in $values {
+		.#{$property}-#{$value} {
+			#{$property}: #{$value};
+		}
+	}
 }
 
 @mixin mobile-grid-generator($property, $values) {
-  @each $value in $values {
-    .#{$property}-#{$value}--mobile {
-      #{$property}: #{$value};
-    }
-  }
+	@each $value in $values {
+		.#{$property}-#{$value}--mobile {
+			#{$property}: #{$value};
+		}
+	}
 }
 
 // Base Grid Classes
@@ -26,7 +25,7 @@ $grid-auto-flow-values: column, row, dense;
 
 // Mobile Grid Classes in Media Query
 @media (any-pointer: coarse) {
-  @include mobile-grid-generator('align-items', $align-items-values);
-  @include mobile-grid-generator('grid-auto-flow', $grid-auto-flow-values);
-  @include mobile-grid-generator('display', $display-values);
+	@include mobile-grid-generator('align-items', $align-items-values);
+	@include mobile-grid-generator('grid-auto-flow', $grid-auto-flow-values);
+	@include mobile-grid-generator('display', $display-values);
 }
