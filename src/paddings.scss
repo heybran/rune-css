@@ -1,3 +1,4 @@
+@use './box' as _;
 $padding-values: 1 2 3 4 5 6 7 8 9; // Add more values as needed.
 $padding-base: 4px; // Example base padding value.
 
@@ -17,20 +18,13 @@ $padding-base: 4px; // Example base padding value.
   }
 }
 
-@include padding-generator('padding');
-@include padding-generator('padding-block');
-@include padding-generator('padding-block-start');
-@include padding-generator('padding-block-end');
-@include padding-generator('padding-inline');
-@include padding-generator('padding-inline-start');
-@include padding-generator('padding-inline-end');
+
+@each $i in _.$padding-attr-lists {
+  @include padding-generator($i);
+}
 
 @media (any-pointer: coarse) {
-  @include padding-generator-mobile('padding');
-  @include padding-generator-mobile('padding-block');
-  @include padding-generator-mobile('padding-block-start');
-  @include padding-generator-mobile('padding-block-end');
-  @include padding-generator-mobile('padding-inline');
-  @include padding-generator-mobile('padding-inline-start');
-  @include padding-generator-mobile('padding-inline-end');
+  @each $i in _.$padding-attr-lists {
+    @include padding-generator-mobile($i);
+  }
 }

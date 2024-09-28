@@ -1,3 +1,4 @@
+@use './box' as _;
 $margin-values: 1 2 3 4 5 6 7 8 9; // Add more values as needed.
 $margin-base: 4px; // Example base margin value.
 
@@ -17,20 +18,13 @@ $margin-base: 4px; // Example base margin value.
   }
 }
 
-@include margin-generator('margin');
-@include margin-generator('margin-block');
-@include margin-generator('margin-block-start');
-@include margin-generator('margin-block-end');
-@include margin-generator('margin-inline');
-@include margin-generator('margin-inline-start');
-@include margin-generator('margin-inline-end');
+
+@each $i in _.$margin-attr-lists {
+  @include margin-generator($i);
+}
 
 @media (any-pointer: coarse) {
-  @include margin-generator-mobile('margin');
-  @include margin-generator-mobile('margin-block');
-  @include margin-generator-mobile('margin-block-start');
-  @include margin-generator-mobile('margin-block-end');
-  @include margin-generator-mobile('margin-inline');
-  @include margin-generator-mobile('margin-inline-start');
-  @include margin-generator-mobile('margin-inline-end');
+  @each $i in _.$margin-attr-lists {
+    @include margin-generator-mobile($i);
+  }
 }
