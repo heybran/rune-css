@@ -3,10 +3,11 @@
 	"version": "0.1.0",
 	"description": "A collection of responsive utility classes for personal and small-scale projects.",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"watch": "sass styles.scss dist/styles.css --watch",
 		"build": "sass styles.scss dist/styles.css",
-		"build:minify": "sass styles.scss dist/styles.min.css --style compressed"
+		"build:minify": "sass styles.scss dist/styles.min.css --style compressed && node ./build/index.js"
 	},
 	"repository": {
 		"type": "git",
@@ -19,6 +20,7 @@
 	},
 	"homepage": "https://github.com/heybran/rune-css#readme",
 	"devDependencies": {
+		"lightningcss": "^1.27.0",
 		"sass": "^1.79.3"
 	}
 }
