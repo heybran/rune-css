@@ -17,7 +17,6 @@ async function processCss() {
     const filePath = path.join(__dirname, '../dist', 'styles.min.css');
     const cssBuffer = await readFile(filePath); 
     const { code, map } = await transform({ 
-      filename: 'styles_lightning_min.css',
       code: Buffer.from(cssBuffer),
       minify: true,
       sourceMap: true
