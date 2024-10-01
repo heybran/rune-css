@@ -1,104 +1,62 @@
-$margin-values: 0 1 2 3 4 5 6 7 8 9;
-$margin-auto-values: auto;
+$margin-values: 0 1 2 3 4 5 6 7 8 9 auto;
+$margin-class-lists: 
+	'margin', 'margin-block', 'margin-block-start', 'margin-block-end', 
+	'margin-inline', 'margin-inline-start', 'margin-inline-end';
 
-@mixin margin-generator($property) {
+@mixin margin-generator($property, $breakpoint) {
 	@each $value in $margin-values {
-		.#{$property}-#{$value} {
-			#{$property}: calc(var(--margin-base) * #{$value});
-		}
-	}
-}
-
-@mixin margin-auto-generator($property, $breakpoint) {
-	@each $value in $margin-auto-values {
-		@if $breakpoint =='' {
-			.#{$property}-#{$value} {
-				#{$property}: $value;
+		@if $value == 'auto' {
+			@if $breakpoint =='' {
+				.#{$property}-#{$value} {
+					#{$property}: auto;
+				}
+			}
+	
+			@else {
+				.#{$property}-#{$value}--#{$breakpoint} {
+					#{$property}: auto;
+				}
 			}
 		}
-
+		
 		@else {
-			.#{$property}-#{$value}--#{$breakpoint} {
-				#{$property}: $value;
+			@if $breakpoint =='' {
+				.#{$property}-#{$value} {
+					#{$property}: calc(var(--margin-base) * #{$value});
+				}
+			}
+	
+			@else {
+				.#{$property}-#{$value}--#{$breakpoint} {
+					#{$property}: calc(var(--margin-base) * #{$value});
+				}
 			}
 		}
 	}
 }
 
-@mixin mobile-margin-generator($property) {
-	@each $value in $margin-values {
-		.#{$property}-#{$value}--mobile {
-			#{$property}: calc(var(--margin-base) * #{$value});
-		}
-	}
+// Universal.
+@each $i in $margin-class-lists {
+	@include margin-generator($i, '');
 }
 
-@mixin tablet-margin-generator($property) {
-	@each $value in $margin-values {
-		.#{$property}-#{$value}--tablet {
-			#{$property}: calc(var(--margin-base) * #{$value});
-		}
-	}
-}
-
-@mixin desktop-margin-generator($property) {
-	@each $value in $margin-values {
-		.#{$property}-#{$value}--desktop {
-			#{$property}: calc(var(--margin-base) * #{$value});
-		}
-	}
-}
-
-@include margin-generator('margin');
-@include margin-generator('margin-block');
-@include margin-generator('margin-block-start');
-@include margin-generator('margin-block-end');
-@include margin-generator('margin-inline');
-@include margin-generator('margin-inline-start');
-@include margin-generator('margin-inline-end');
-
-@include margin-auto-generator('margin', '');
-@include margin-auto-generator('margin-inline', '');
-@include margin-auto-generator('margin-block', '');
-
+// Mobile.
 @media (max-width: 768px) {
-	@include mobile-margin-generator('margin');
-	@include mobile-margin-generator('margin-block');
-	@include mobile-margin-generator('margin-block-start');
-	@include mobile-margin-generator('margin-block-end');
-	@include mobile-margin-generator('margin-inline');
-	@include mobile-margin-generator('margin-inline-start');
-	@include mobile-margin-generator('margin-inline-end');
-
-	@include margin-auto-generator('margin', 'mobile');
-	@include margin-auto-generator('margin-inline', 'mobile');
-	@include margin-auto-generator('margin-block', 'mobile');
+	@each $i in $margin-class-lists {
+		@include margin-generator($i, 'mobile');
+	}
 }
 
+// Tablet.
 @media (max-width: 1024px) {
-	@include tablet-margin-generator('margin');
-	@include tablet-margin-generator('margin-block');
-	@include tablet-margin-generator('margin-block-start');
-	@include tablet-margin-generator('margin-block-end');
-	@include tablet-margin-generator('margin-inline');
-	@include tablet-margin-generator('margin-inline-start');
-	@include tablet-margin-generator('margin-inline-end');
-
-	@include margin-auto-generator('margin', 'tablet');
-	@include margin-auto-generator('margin-inline', 'tablet');
-	@include margin-auto-generator('margin-block', 'tablet');
+	@each $i in $margin-class-lists {
+		@include margin-generator($i, 'tablet');
+	}
 }
 
+// Desktop.
 @media (min-width: 1024px) {
-	@include desktop-margin-generator('margin');
-	@include desktop-margin-generator('margin-block');
-	@include desktop-margin-generator('margin-block-start');
-	@include desktop-margin-generator('margin-block-end');
-	@include desktop-margin-generator('margin-inline');
-	@include desktop-margin-generator('margin-inline-start');
-	@include desktop-margin-generator('margin-inline-end');
-
-	@include margin-auto-generator('margin', 'desktop');
-	@include margin-auto-generator('margin-inline', 'desktop');
-	@include margin-auto-generator('margin-block', 'desktop');
+	@each $i in $margin-class-lists {
+		@include margin-generator($i, 'desktop');
+	}
 }
