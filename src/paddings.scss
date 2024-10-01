@@ -1,71 +1,45 @@
 $padding-values: 0 1 2 3 4 5 6 7 8 9;
+$padding-class-lists: 'padding', 'padding-block', 'padding-block-start', 'padding-block-end',
+	'padding-inline', 'padding-inline-start', 'padding-inline-end';
 
-@mixin padding-generator($property) {
+@mixin padding-generator($property, $breakpoint) {
 	@each $value in $padding-values {
-		.#{$property}-#{$value} {
-			#{$property}: calc(var(--padding-base) * #{$value});
+		@if $breakpoint =='' {
+			.#{$property}-#{$value} {
+				#{$property}: calc(var(--padding-base) * #{$value});
+			}
+		}
+
+		@else {
+			.#{$property}-#{$value}--#{$breakpoint} {
+				#{$property}: calc(var(--padding-base) * #{$value});
+			}
 		}
 	}
 }
 
-@mixin mobile-padding-generator($property) {
-	@each $value in $padding-values {
-		.#{$property}-#{$value}--mobile {
-			#{$property}: calc(var(--padding-base) * #{$value});
-		}
-	}
+// Universal.
+@each $i in $padding-class-lists {
+	@include padding-generator($i, '');
 }
 
-@mixin tablet-padding-generator($property) {
-	@each $value in $padding-values {
-		.#{$property}-#{$value}--tablet {
-			#{$property}: calc(var(--padding-base) * #{$value});
-		}
-	}
-}
-
-@mixin desktop-padding-generator($property) {
-	@each $value in $padding-values {
-		.#{$property}-#{$value}--desktop {
-			#{$property}: calc(var(--padding-base) * #{$value});
-		}
-	}
-}
-
-@include padding-generator('padding');
-@include padding-generator('padding-block');
-@include padding-generator('padding-block-start');
-@include padding-generator('padding-block-end');
-@include padding-generator('padding-inline');
-@include padding-generator('padding-inline-start');
-@include padding-generator('padding-inline-end');
-
+// Mobile.
 @media (max-width: 768px) {
-	@include mobile-padding-generator('padding');
-	@include mobile-padding-generator('padding-block');
-	@include mobile-padding-generator('padding-block-start');
-	@include mobile-padding-generator('padding-block-end');
-	@include mobile-padding-generator('padding-inline');
-	@include mobile-padding-generator('padding-inline-start');
-	@include mobile-padding-generator('padding-inline-end');
+	@each $i in $padding-class-lists {
+		@include padding-generator($i, 'mobile');
+	}
 }
 
+// Tablet.
 @media (max-width: 1024px) {
-	@include tablet-padding-generator('padding');
-	@include tablet-padding-generator('padding-block');
-	@include tablet-padding-generator('padding-block-start');
-	@include tablet-padding-generator('padding-block-end');
-	@include tablet-padding-generator('padding-inline');
-	@include tablet-padding-generator('padding-inline-start');
-	@include tablet-padding-generator('padding-inline-end');
+	@each $i in $padding-class-lists {
+		@include padding-generator($i, 'tablet');
+	}
 }
 
+// Desktop.
 @media (min-width: 1024px) {
-	@include desktop-padding-generator('padding');
-	@include desktop-padding-generator('padding-block');
-	@include desktop-padding-generator('padding-block-start');
-	@include desktop-padding-generator('padding-block-end');
-	@include desktop-padding-generator('padding-inline');
-	@include desktop-padding-generator('padding-inline-start');
-	@include desktop-padding-generator('padding-inline-end');
+	@each $i in $padding-class-lists {
+		@include padding-generator($i, 'desktop');
+	}
 }
