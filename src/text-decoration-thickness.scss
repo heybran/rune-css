@@ -1,0 +1,20 @@
+$values: 1 2 3 4 5;
+
+@mixin text-decoration-thickness($breakpoint) {
+	@each $value in $values {
+		@if $breakpoint =='' {
+			.text-decoration-thickness-#{$value} {
+				text-decoration-thickness: #{$value}px;
+			}
+		}
+
+		@else {
+			.text-decoration-thickness-#{$value}--#{$breakpoint} {
+				text-decoration-thickness: #{$value}px;
+			}
+		}
+	}
+}
+
+// Universal.
+@include text-decoration-thickness('');

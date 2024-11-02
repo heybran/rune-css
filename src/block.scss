@@ -1,0 +1,35 @@
+$display-values: block, inline-block;
+
+@mixin class-generator($breakpoint) {
+  @each $value in $display-values {
+    @if $breakpoint =='' {
+      .display-#{$value} {
+        display: $value;
+      }
+    }
+
+    @else {
+      .display-#{$value}--#{$breakpoint} {
+        display: $value;
+      }
+    }
+  }
+}
+
+// Universal.
+@include class-generator('');
+
+// Mobile.
+@media (max-width: 768px) {
+  @include class-generator('mobile');
+}
+
+// Tablet.
+@media (max-width: 1024px) {
+  @include class-generator('tablet');
+}
+
+// Desktop.
+@media (min-width: 1024px) {
+  @include class-generator('desktop');
+}

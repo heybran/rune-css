@@ -1,0 +1,20 @@
+$values: none underline overline line-through blink;
+
+@mixin text-decoration-line($breakpoint) {
+	@each $value in $values {
+		@if $breakpoint =='' {
+			.text-decoration-line-#{$value} {
+				text-decoration-line: #{$value};
+			}
+		}
+
+		@else {
+			.text-decoration-line-#{$value}--#{$breakpoint} {
+				text-decoration-line: #{$value};
+			}
+		}
+	}
+}
+
+// Universal.
+@include text-decoration-line('');

@@ -1,0 +1,20 @@
+$values: 1 2 3 4 5 6 7 8 9;
+
+@mixin text-underline-offset($breakpoint) {
+	@each $value in $values {
+		@if $breakpoint =='' {
+			.text-underline-offset-#{$value} {
+				text-underline-offset: #{$value}px;
+			}
+		}
+
+		@else {
+			.text-underline-offset-#{$value}--#{$breakpoint} {
+				text-underline-offset: #{$value}px;
+			}
+		}
+	}
+}
+
+// Universal.
+@include text-underline-offset('');

@@ -1,0 +1,62 @@
+$border-radius-values: 0 1 2 3 4 5 6 7 8 9 round;
+$border-radius-class-lists: 
+	'border-radius', 'border-top-left-radius', 'border-top-right-radius', 
+	'border-bottom-left-radius', 'border-bottom-right-radius';
+
+@mixin border-radius-generator($property, $breakpoint) {
+	@each $value in $border-radius-values {
+		@if $value == 'round' {
+			@if $breakpoint =='' {
+				.#{$property}-#{$value} {
+					#{$property}: 50%;
+				}
+			}
+	
+			@else {
+				.#{$property}-#{$value}--#{$breakpoint} {
+					#{$property}: 50%;
+				}
+			}
+		}
+		
+		@else {
+			@if $breakpoint =='' {
+				.#{$property}-#{$value} {
+					#{$property}: calc(var(--border-radius-base) * #{$value});
+				}
+			}
+	
+			@else {
+				.#{$property}-#{$value}--#{$breakpoint} {
+					#{$property}: calc(var(--border-radius-base) * #{$value});
+				}
+			}
+		}
+	}
+}
+
+// Universal.
+@each $i in $border-radius-class-lists {
+	@include border-radius-generator($i, '');
+}
+
+// Mobile.
+@media (max-width: 768px) {
+	@each $i in $border-radius-class-lists {
+		@include border-radius-generator($i, 'mobile');
+	}
+}
+
+// Tablet.
+@media (max-width: 1024px) {
+	@each $i in $border-radius-class-lists {
+		@include border-radius-generator($i, 'tablet');
+	}
+}
+
+// Desktop.
+@media (min-width: 1024px) {
+	@each $i in $border-radius-class-lists {
+		@include border-radius-generator($i, 'desktop');
+	}
+}

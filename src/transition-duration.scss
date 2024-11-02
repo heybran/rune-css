@@ -1,0 +1,40 @@
+$values: 0 1 2 3 4 5 6 7 8 9 10;
+
+:root {
+	// Add a `rune` prefix to differentiate from other variables.
+	--tdb: var(--rune-transition-duration-base, 100ms);
+}
+
+@mixin transition-duration($breakpoint) {
+	@each $value in $values {
+		@if $breakpoint =='' {
+			.transition-duration-#{$value} {
+				transition-duration: calc(var(--tdb) * #{$value});
+			}
+		}
+
+		@else {
+			.transition-duration-#{$value}--#{$breakpoint} {
+				transition-duration: calc(var(--tdb) * #{$value});
+			}
+		}
+	}
+}
+
+// Universal.
+@include transition-duration('');
+
+// // Mobile.
+// @media (max-width: 768px) {
+// 	@include transition-duration('mobile');
+// }
+
+// // Tablet.
+// @media (max-width: 1024px) {
+// 	@include transition-duration('tablet');
+// }
+
+// // Desktop.
+// @media (min-width: 1024px) {
+// 	@include transition-duration('desktop');
+// }

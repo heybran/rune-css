@@ -1,0 +1,35 @@
+$values: ease ease-in ease-out ease-in-out linear step-start step-end;
+
+@mixin transition-timing-function($breakpoint) {
+	@each $value in $values {
+		@if $breakpoint =='' {
+			.transition-timing-function-#{$value} {
+				transition-timing-function: #{$value};
+			}
+		}
+
+		@else {
+			.transition-timing-function-#{$value}--#{$breakpoint} {
+				transition-timing-function: #{$value};
+			}
+		}
+	}
+}
+
+// Universal.
+@include transition-timing-function('');
+
+// // Mobile.
+// @media (max-width: 768px) {
+// 	@include transition-timing-function('mobile');
+// }
+
+// // Tablet.
+// @media (max-width: 1024px) {
+// 	@include transition-timing-function('tablet');
+// }
+
+// // Desktop.
+// @media (min-width: 1024px) {
+// 	@include transition-timing-function('desktop');
+// }

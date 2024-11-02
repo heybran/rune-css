@@ -1,0 +1,35 @@
+$font-weight-values: 100 200 300 400 500 600 700 800 900 bold bolder lighter normal inherit initial;
+
+@mixin font-weight-generator($breakpoint) {
+	@each $value in $font-weight-values {
+		@if $breakpoint =='' {
+			.font-weight-#{$value} {
+				font-weight: #{$value};
+			}
+		}
+
+		@else {
+			.font-weight-#{$value}--#{$breakpoint} {
+				font-weight: #{$value};
+			}
+		}
+	}
+}
+
+// Universal.
+@include font-weight-generator('');
+
+// Mobile.
+@media (max-width: 768px) {
+	@include font-weight-generator('mobile');
+}
+
+// Tablet.
+@media (max-width: 1024px) {
+	@include font-weight-generator('tablet');
+}
+
+// Desktop.
+@media (min-width: 1024px) {
+	@include font-weight-generator('desktop');
+}

@@ -1,0 +1,35 @@
+$position-values: initial static relative fixed sticky inherit unset;
+
+@mixin rules-generator($breakpoint) {
+	@each $value in $position-values {
+		@if $breakpoint =='' {
+			.position-#{$value} {
+				position: #{$value};
+			}
+		}
+
+		@else {
+			.position-#{$value}--#{$breakpoint} {
+				position: #{$value};
+			}
+		}
+	}
+}
+
+// Universal.
+@include rules-generator('');
+
+// Mobile.
+@media (max-width: 768px) {
+	@include rules-generator('mobile');
+}
+
+// Tablet.
+@media (max-width: 1024px) {
+	@include rules-generator('tablet');
+}
+
+// Desktop.
+@media (min-width: 1024px) {
+	@include rules-generator('desktop');
+}
